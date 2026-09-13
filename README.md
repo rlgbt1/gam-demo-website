@@ -1,183 +1,87 @@
-# GAM — Grupo António Mosquito · Demo Digital Ecosystem
+# GAM — client presentation demo
 
-Protótipo de prospecção estratégica produzido pela **Teko** para o GAM — Grupo
-António Mosquito. Demonstra, através de duas páginas de altíssima qualidade
-(Home e Grupo/Sobre Nós), o que a presença digital do Grupo poderia ser se
-reflectisse a escala e credibilidade real do GAM.
+A bilingual, responsive concept for Grupo António Mosquito, redesigned around the supplied PESCO references. React, TypeScript, Vite, React Router and GSAP.
 
-**Isto é um demo, não o site final.** Ver [Escopo](#escopo-e-o-que-não-está-aqui) abaixo.
+## Run
 
-> Referência estrutural/mecânica: [PESCO Holding](https://www.behance.net/gallery/246352495/PESCO-Holding-Industrial-Corporate-UXUI)
-> — mesma mecânica de scroll do hero, adaptada à identidade e conteúdo real do GAM.
-> A paleta amarela/azul do logo GAM foi mantida deliberadamente (não copiámos o
-> preto/branco da Pesco).
-
----
-
-## Como correr localmente
-
-Requisitos: Node 20+ e npm.
-
-```bash
+```sh
 npm install
-npm run dev       # servidor de desenvolvimento (Vite)
-npm run build     # build de produção em dist/
-npm run preview   # pré-visualiza o build de produção
-npm run lint      # oxlint
+npm run dev
 ```
 
-## Stack técnico
+For a production preview:
 
-| Camada        | Escolha                                                     |
-| ------------- | ------------------------------------------------------------ |
-| Framework     | React 19 + Vite (mesma base dos outros projectos Teko)        |
-| Routing       | react-router-dom (`/` e `/grupo`)                             |
-| Animação      | GSAP + ScrollTrigger (mecânica de scroll-pin do hero)          |
-| Estilo        | CSS Modules + tokens em `src/index.css` (sem framework CSS)    |
-| Tipografia    | Fraunces (títulos) + Manrope (corpo) via Google Fonts          |
-| Vídeo/Imagem  | Assets reais do cliente, comprimidos com ffmpeg (ver abaixo)   |
-| Deploy        | Vercel (recomendado) — ver [Deploy](#deploy)                   |
-
-Sem backend, sem CMS — site estático, tal como os outros demos Teko.
-
-## Estrutura
-
-```
-src/
-  data/content.ts        → TODA a cópia institucional real (fonte única da verdade)
-  components/
-    hero/                 → ScrollHero (desktop, pin+scrub) e SimpleHero (mobile/reduced-motion)
-    layout/                → Navbar, Footer, ScrollToTop
-    sections/              → IntroSection, AtScale, PortfolioStrip, FinalCta
-  pages/
-    Home.tsx
-    Group.tsx             → "Grupo / Sobre Nós"
-  assets/
-    video/                → 4 vídeos de cena (comprimidos, ~0.4–2.2MB cada) + posters
-    scenes/                → recortes/transparências para o parallax do hero
-    photos/                → retrato do Presidente, mapa de Angola, logótipo GAM
-    logos/                 → logótipos das empresas do portfólio
+```sh
+npm run build
+npm run preview
 ```
 
-## A mecânica do Hero (`ScrollHero.tsx`)
+The production website is generated in `dist/`. Serve it over HTTP; opening `index.html` as a local file does not support client-side routing.
 
-Reproduz a mecânica da Pesco com conteúdo e paleta GAM:
+## Included
 
-1. Um "stage" fixo (90vw/90vh, cantos arredondados) fica pinned no ecrã.
-2. Um marquee horizontal com os **sete sectores confirmados** (+ Petróleos)
-   desloca-se da direita para a esquerda, sincronizado com o scroll.
-3. Quatro cenas em vídeo real do cliente (transporte, petróleos, construção/
-   skyline de Luanda, agricultura) fazem crossfade por trás do texto, cada
-   uma com o seu recorte em primeiro plano (autocarro Huambo Expresso,
-   barris, viga em I) — tal como o crane/painel solar da Pesco. A última cena
-   fecha "em fundo limpo" com a marca GAM, conforme pedido no brief.
-4. O stage encolhe para um pequeno cartão com um contador 00→99.
-5. O stage expande para 100vw/100vh, revelando o headline definitivo e o CTA.
+- Home: full-screen video, editorial introduction, desktop scroll-controlled typographic scene with GAM cut-outs, statistics, sector links, interactive company showcase and responsibility section.
+- Group: overview, leadership portrait and institutional motto, statistics and values.
+- Companies: nine supplied company logos, category filters and individual preview profiles.
+- Sectors: expandable information for seven established sectors and oil exploration.
+- Sustainability: institutional commitments and a preview of future impact content.
+- Contact: published phone/address/email details; form validates and prepares a `mailto:` message in the visitor’s email application. There is no backend and the demo does not claim to send messages.
+- News and Careers: designed “Em breve / Coming soon” pages.
+- Portuguese/English toggle on every page, persisted locally; translated navigation, page content, form labels, accessibility labels and titles.
+- Keyboard navigation, menu focus handling, video pause/play, mobile company arrows, reduced-motion support and a 404 page.
 
-**Mobile e `prefers-reduced-motion`:** o scroll-jacking pinned é uma técnica
-pesada em ecrãs pequenos e no Safari iOS, por isso o hero **não** usa a mesma
-mecânica em ecrãs <880px nem quando o utilizador pede movimento reduzido.
-Nesses casos, `SimpleHero.tsx` mostra o mesmo conteúdo final imediatamente,
-com um marquee CSS leve e sem scroll-jacking — mobile-first a sério, não uma
-versão degradada esquecida.
+## Files
 
-## Conteúdo — só factos verificados
+- `src/redesign/Home.tsx`: homepage and showcase interaction.
+- `src/redesign/Pages.tsx`: supporting pages.
+- `src/redesign/ui.tsx`: shared header, footer and UI.
+- `src/redesign/content.ts`: supplied asset mapping and bilingual portfolio data.
+- `src/redesign/context.tsx`, `useLanguage.ts`: language provider.
+- `src/App.tsx`: routes and page titles.
+- `src/index.css`: responsive visual system.
+- `src/assets/`: existing supplied images, logos, cut-outs and video.
+- `public/fonts/`: locally hosted Poppins and Zilla Slab, with SIL Open Font License files. Zilla Slab is the open-source slab-serif alternative to the reference’s Mokoko.
+- `docs/`: verification notes and visual previews.
 
-Toda a cópia em `src/data/content.ts` deriva exclusivamente do texto "About"
-real do gam.ao (capturado no brief). **Nada foi inventado**: números,
-sectores, nomes de empresas e a citação do lema são factos confirmados.
+## Content and imagery
 
-- Sectores consolidados (7, confirmados): Comércio e Transporte, Construção
-  Civil, Hotelaria, Imobiliária, Banca, Agricultura e Pecuária, Indústria.
-- Petróleos surge separadamente como "investimento mais recente" / "em
-  expansão" — exactamente como no texto original, nunca listado como um dos
-  sete sectores "consolidados".
-- Estatísticas ("At Scale"): ~20 empresas, $120M+ volume de negócios, 1.300+
-  colaboradores — os únicos três números confirmados no texto fonte.
-- Empresas do portfólio: apenas os nomes/designações que constam dos seus
-  próprios logótipos (nenhuma descrição de sector foi inventada onde o
-  original não a fornece).
+Sources checked on 13 September 2026:
 
-Se precisar de adicionar conteúdo que ainda não está confirmado (ex.:
-descrições de sector por extenso), marque-o explicitamente como placeholder
-— nunca o escreva como se fosse facto. Ver `isPlaceholderNote` em
-`content.ts` para o padrão a seguir.
+- https://www.gam.ao/index.php/quem-somos
+- Supplied GAM brief, screenshots and repository assets.
+- Design reference: https://www.pesco-holding.com/en and the user’s PESCO screenshots.
 
-## Assets
+Figures preserve the source’s qualifiers: approximately 20 companies, approximately US$120 million annual turnover, and over 1,300 employees. These are published institutional figures, not independently verified current financial data.
 
-Os vídeos e imagens vieram da pasta fornecida pelo cliente
-(`Grupo Antonio Mosquito/`, no ambiente onde este projecto foi gerado) e
-foram processados com `ffmpeg` antes de entrarem no repositório:
+The chairman’s panel labels the quotation as the **institutional motto**, not a newly attributed personal statement. Journey dates were supplied by the client; no historical event descriptions, certifications, project achievements or job openings have been invented. Extended profiles, impact initiatives, news and opportunities remain explicitly “coming soon”. The food-company display name follows the supplied **Ammil** logo; the earlier prompt calls it GAMIL and should be reconciled with the client before production.
 
-- **Vídeos** (`Videos/*.mp4`, originalmente ~10–46MB / 1920×1080 cada) →
-  recomprimidos para 1280px de largura, 8s, sem áudio, ~0.4–2.2MB cada.
-- **Recortes/fotos** → redimensionados para os tamanhos realmente usados no
-  layout (poupa peso sem perder qualidade percebida).
+Existing scene images illustrate sectors; their provenance as actual company facilities has not been independently established. Keep them as demo imagery until the client validates the media library. No PESCO branding or image assets have been imported.
 
-Todo o site pesa poucos MB no total — importante para uma demo que deve
-carregar bem mesmo em ligações móveis mais lentas em Angola.
+## Presentation / deployment
 
-Se precisar de **substituir ou adicionar** vídeos/imagens (ex.: mais cenas
-para o "reel" de fundo de secções), o padrão é:
+Portuguese is the default language. Start at `/`, scroll through the large-type sequence on desktop, try company tabs and explore `/grupo` and `/empresas`. The typographic scene uses scroll-controlled horizontal text on desktop and phones, with a stationary bus at the bottom. Reduced-motion preferences receive a static composition. All fonts and images load from the site itself.
 
-```bash
-ffmpeg -i in.mp4 -t 8 -vf "scale=1280:-2" -an -c:v libx264 -crf 28 \
-  -preset veryfast -movflags +faststart out.mp4
-ffmpeg -i in.mp4 -vframes 1 -q:v 4 -vf "scale=1280:-2" poster.jpg
-```
+The existing `vercel.json` handles SPA route fallbacks. The default build targets the domain root. A different static host must serve `index.html` for application routes. For subdirectory deployment, configure Vite’s `base` and the host’s SPA fallback. React Router reads the configured base path.
 
-## Deploy
+This is a local, presentation-ready concept, not a published official GAM website. `noindex, nofollow` and the discreet demo footer are retained. Source repository: https://github.com/rlgbt1/gam-demo-website. GitHub Pages deployment is pending; no email backend is configured.
 
-**Recomendação: Vercel**, não GitHub Pages, por três razões concretas para
-este projecto:
+## Presentation refinements
 
-1. **Ainda não existe repositório GitHub.** A Vercel permite deploy directo
-   por CLI (`vercel --prod`) ou drag-and-drop, sem depender de um repo
-   remoto ou de configurar GitHub Actions primeiro — importante para mostrar
-   isto ao cliente o mais rápido possível.
-2. **Detecção automática de Vite.** Zero configuração de build; o
-   `vercel.json` incluído trata dos rewrites de SPA para que `/grupo`
-   funcione em refresh directo (o GitHub Pages exigiria um hack de
-   `404.html` para o mesmo efeito).
-3. **CDN mais rápida para os vídeos de fundo** e URLs de preview únicos por
-   deploy — úteis para partilhar versões com o cliente antes de aprovar.
+- The hero cycles through five clips: agriculture, transport, Oil & Gas, the original Luanda clip (labelled Construção civil), and Mbakassy cars (labelled Indústria), with manual chapter controls and pause/play. Agriculture plays first.
+- All nine companies can be selected from the homepage showcase, with previous/next arrows, sector video playback on selection, and pause/play.
+- All eight images in the supplied `animation-icons` folder are included. CSS frames their transparent bounds; original files are untouched. The scene spans the viewport width and scrolls on mobile as well as desktop.
+- Three animated gold hexagons assemble into the GAM symbol on the Group page. Reduced-motion users see the completed mark.
+- The Group journey includes the user-supplied dates 1974, 1980, 1990, 2000, 2010 and 2026, without invented historical descriptions. The three supplied photographs are sector illustrations, not asserted to be archival images from those dates.
+- Teko’s wordmark links to https://rlgbt1.github.io/teko-website-/; the closing project CTA links to WhatsApp +244 922 096 472.
+- Home appears in header and footer; Oil & Gas is used as the sector label in both languages.
 
-```bash
-npm install -g vercel   # uma vez
-vercel                  # deploy de preview
-vercel --prod           # deploy de produção
-```
+## Scroll composition
 
-Quando o repositório GitHub existir, basta ligar o repo à Vercel
-(vercel.com/new) para deploys automáticos a cada push — sem alterar nada
-neste projecto.
+Six sequential scroll chapters: buses, sky, steel blocks, crane, industry, and solar panels. The bus fades before the sky enters. Fades alternate with directional entrances, while the steel blocks and solar rows assemble as the user scrolls and reverse when scrolling back. Sky and industry images retain natural proportions inside wide cropped frames. The stage works on mobile and desktop; reduced-motion preferences are respected. The sectors CTA sits below the statistics.
 
-Se ainda assim preferir GitHub Pages mais tarde (ex.: para alinhar com os
-outros sites Teko que já usam esse padrão): adicionar `base` no
-`vite.config.ts` com o nome do repositório, criar o workflow de Actions (como
-nos outros projectos Teko) e duplicar `index.html` para `404.html` para o
-fallback de SPA.
+## Latest details
 
-## Escopo e o que NÃO está aqui
-
-Este é um demo de duas páginas para uma apresentação estratégica — não o
-site final. Deliberadamente **não construído** nesta fase:
-
-- Business Areas / Portfolio com perfis individuais por empresa
-- Projectos / Impacto
-- Notícias
-- Carreiras
-
-Estas secções estão descritas na arquitectura da apresentação mas fora do
-âmbito deste protótipo.
-
-## Próximos passos sugeridos
-
-- Confirmar com o GAM: descrições por sector, marcos históricos, e se há
-  mais imagens/vídeo em maior resolução para as cenas do hero.
-- Se aprovado, criar o repositório GitHub e ligar a um domínio próprio.
-- Construir as restantes páginas da arquitectura (fora do âmbito deste demo).
-
----
-
-Produzido por **Teko** — estúdio de sistemas de negócio e transformação digital.
+- Company backgrounds use dedicated CCL, Microcenter, Mbakassy, SyOil, Ammil and waste-management clips, separate from the hero playlist.
+- The founder portrait has a GAM-inspired frame and a bilingual link to `/fundador`, a coming-soon page.
+- Teko contact links include its website, WhatsApp and `tekoo.aip@gmail.com`.
+- Build and lint pass; mobile and desktop browser checks cover scroll sequences, assembly reversal, proportional image cropping and company playback.
