@@ -328,13 +328,13 @@ function Manifesto() {
         <div className="manifesto-track" aria-hidden="true">
           {t(
             "Diversificar o hoje. Construir o amanhã.",
-            "Build the Angola of tomorrow.",
+            "Diversifying today. Building the Angola of Tomorrow.",
           )}
         </div>
         <h2 className="sr-only">
           {t(
             "Diversificar o hoje. Construir o amanhã.",
-            "Build the Angola of tomorrow.",
+            "Diversifying today. Building the Angola of Tomorrow.",
           )}
         </h2>
         {(["bus", "crane", "steel", "solar"] as const).map((name) => (
