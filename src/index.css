@@ -1,0 +1,180 @@
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300..900&family=Manrope:wght@400;500;600;700;800&display=swap');
+
+:root {
+  /* GAM identity — amarelo/dourado + azul do logo, mantidos deliberadamente (Pesco é referência de grid e mecânica, não de paleta) */
+  --gam-gold: #d9a53a;
+  --gam-gold-light: #f0c869;
+  --gam-gold-dark: #a97a1f;
+  --gam-blue: #142a52;
+  --gam-blue-deep: #0a1730;
+  --gam-blue-mid: #1f3d70;
+
+  --ink: #0e1420;
+  --paper: #faf8f3;
+  --paper-dim: #f1ede2;
+  --line: rgba(14, 20, 32, 0.12);
+  --line-soft: rgba(14, 20, 32, 0.07);
+
+  --font-display: 'Fraunces', 'Iowan Old Style', Georgia, serif;
+  --font-body: 'Manrope', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+
+  --container: 1280px;
+  --gutter: clamp(20px, 5vw, 64px);
+  --radius-lg: 28px;
+  --radius-md: 18px;
+  --radius-sm: 10px;
+
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+
+  color-scheme: light;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  background: var(--paper);
+}
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  overflow-x: clip;
+}
+
+img,
+video {
+  max-width: 100%;
+  display: block;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  line-height: 1.05;
+  margin: 0;
+  letter-spacing: -0.01em;
+}
+
+p {
+  margin: 0;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+  background: none;
+  border: none;
+  color: inherit;
+}
+
+.container {
+  max-width: var(--container);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+.kicker {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6em;
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: 0.78rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--gam-gold-dark);
+}
+
+.kicker::before {
+  content: '';
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--gam-gold);
+  box-shadow: 0 0 0 3px rgba(217, 165, 58, 0.22);
+  flex: none;
+}
+
+.kicker.on-dark {
+  color: var(--gam-gold-light);
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.95rem 1.6rem;
+  border-radius: 999px;
+  font-weight: 700;
+  font-size: 0.95rem;
+  border: 1px solid transparent;
+  transition: transform 0.35s var(--ease-out), background 0.3s, color 0.3s, border-color 0.3s;
+  white-space: nowrap;
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+}
+
+.btn-primary {
+  background: var(--gam-blue);
+  color: var(--paper);
+}
+
+.btn-primary:hover {
+  background: var(--gam-blue-deep);
+}
+
+.btn-gold {
+  background: var(--gam-gold);
+  color: var(--gam-blue-deep);
+}
+
+.btn-gold:hover {
+  background: var(--gam-gold-light);
+}
+
+.btn-outline {
+  background: transparent;
+  border-color: currentColor;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+::selection {
+  background: var(--gam-gold);
+  color: var(--gam-blue-deep);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}

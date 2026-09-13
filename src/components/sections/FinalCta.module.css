@@ -1,0 +1,43 @@
+.section {
+  position: relative;
+  padding-block: clamp(5rem, 14vw, 9rem);
+  background: var(--gam-blue);
+  color: var(--paper);
+  text-align: center;
+  overflow: hidden;
+}
+
+.section::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 60% 90% at 50% 120%, rgba(217, 165, 58, 0.28), transparent 60%);
+  pointer-events: none;
+}
+
+.inner {
+  position: relative;
+  max-width: 46rem;
+  margin-inline: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.2rem;
+}
+
+.inner h2 {
+  color: var(--paper);
+  font-size: clamp(2.1rem, 5.5vw, 3.4rem);
+}
+
+.inner p {
+  color: rgba(250, 248, 243, 0.78);
+  font-size: clamp(1rem, 1.6vw, 1.15rem);
+  max-width: 38rem;
+  line-height: 1.6;
+}
+
+.actions {
+  margin-top: 0.6rem;
+}
