@@ -46,7 +46,7 @@ export default function HuamboCoach() {
         if (destroyed || !visible || document.hidden) return;
         const progress = reduce.matches ? 0 : Math.min(1, Math.max(0,
           Number.parseFloat(frame!.style.getPropertyValue('--coach-turn')) || 0));
-        coach.rotation.y = .18 - progress * .96;
+        coach.rotation.y = .18 - progress * 1.44;
         coach.position.x = progress * .45;
         renderer.render(scene,camera);
         node!.dataset.turn = progress.toFixed(4);

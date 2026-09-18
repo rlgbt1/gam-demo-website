@@ -238,9 +238,9 @@ function Manifesto() {
           [".object-solar"],
         ];
         {
-          // Hold the reference pose, reveal the side livery, then use the existing chapter fade.
+          // Hold the opening pose, then keep turning through the unchanged fade at 1.45–1.90.
           tl.fromTo(".object-bus", { "--coach-turn": 0 }, {
-            "--coach-turn": 1, duration: 1.05, ease: "power2.inOut",
+            "--coach-turn": 1, duration: 1.7, ease: "none",
           }, 0.2);
         }
         chapters.forEach((targets, i) => {
