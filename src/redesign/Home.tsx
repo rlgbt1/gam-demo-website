@@ -1,4 +1,4 @@
-import { useEffect, useId, useLayoutEffect, useRef, useState } from "react";
+import { lazy, Suspense, useEffect, useId, useLayoutEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -8,6 +8,8 @@ import { Arrow, ButtonLink, Label, TekoPitch } from "./ui";
 import { heroClips, companyClip, animationAssets } from "./media";
 import { Honeycomb } from "./GroupStory";
 gsap.registerPlugin(ScrollTrigger);
+// Load the coach separately; WebGL initializes only as its chapter approaches.
+const HuamboCoach = lazy(() => import("./HuamboCoach"));
 export function Stats() {
   const { t } = useLanguage();
   return (
@@ -153,11 +155,18 @@ function SceneAsset({
   const height = bottom - top;
   return (
     <div
-      className={`scene-frame ${className}`}
+      className={`scene-frame ${className}${name === "bus" ? " huambo-coach-scene" : ""}`}
       style={{ aspectRatio: `${width}/${height}` }}
       aria-hidden="true"
     >
-      {name === "steel" || name === "solar" ? (
+      {name === "bus" && (
+        <Suspense fallback={null}><HuamboCoach /></Suspense>
+      )}
+      {name === "bus" ? (
+        <svg className="huambo-coach-fallback" viewBox={`${left} ${top} ${width} ${height}`} preserveAspectRatio="xMinYMax meet" width="100%" height="100%">
+          <image href={animationAssets.bus} width="864" height="1232" />
+        </svg>
+      ) : name === "steel" || name === "solar" ? (
         <AssemblyArtwork name={name} />
       ) : name === "sky" || name === "refinery" ? (
         <svg
@@ -228,6 +237,12 @@ function Manifesto() {
           [".scene-refinery"],
           [".object-solar"],
         ];
+        {
+          // Hold the reference pose, reveal the side livery, then use the existing chapter fade.
+          tl.fromTo(".object-bus", { "--coach-turn": 0 }, {
+            "--coach-turn": 1, duration: 1.05, ease: "power2.inOut",
+          }, 0.2);
+        }
         chapters.forEach((targets, i) => {
           const start = i * 2;
           // Alternate a fade with a directional entrance; chapters never overlap.

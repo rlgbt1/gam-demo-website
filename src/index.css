@@ -3964,3 +3964,32 @@ form .button-link {
   display: block;
   overflow: visible;
 }
+
+/* Huambo Expresso coach: same GSAP chapter, a transparent WebGL layer with PNG fallback. */
+.manifesto-clean .object-bus.huambo-coach-scene {
+  width: min(65vw, 850px);
+  height: min(34svh, 320px);
+  aspect-ratio: auto !important;
+  left: 1%;
+  bottom: 0;
+  overflow: visible;
+  filter: none;
+}
+.huambo-coach-canvas { position: absolute; inset: 0; z-index: 1; }
+.huambo-coach-canvas canvas { width: 100%; height: 100%; display: block; }
+.huambo-coach-scene:has(.huambo-coach-canvas[data-status="ready"]) > .huambo-coach-fallback { opacity: 0; }
+.huambo-coach-canvas[data-status="fallback"] { visibility: hidden; }
+.huambo-coach-fallback { position: absolute; inset: 0; }
+@media (max-width: 899px) {
+  .manifesto-clean .object-bus.huambo-coach-scene {
+    width: 100%;
+    height: min(32svh, 300px);
+    left: 0;
+  }
+}
+@media (orientation: landscape) and (max-height: 500px) {
+  .manifesto-clean:has(.huambo-coach-scene) .manifesto-track {
+    top: 28%;
+    font-size: clamp(48px, 9vw, 76px);
+  }
+}
